@@ -44,7 +44,11 @@ public class UserApi {
 
    @GetMapping("/user/github/{login}")
     public GitHubUser getGitUser(@PathVariable("login") String login) throws BadLoginNameException {
-        return this.service.getGitUser(login);
+        try {
+            return this.service.getGitUser(login);
+        }catch (Exception e){
+            throw new BadLoginNameException("oops there is error......."+e.toString());
+        }
     }
 
     @PostMapping("/user/github")
